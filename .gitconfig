@@ -1,0 +1,12 @@
+[user]
+	name = nishisuke
+	email = nishisuke13+git@gmail.com
+[alias]
+	st = status
+	cm = commit -m
+	co = checkout
+	cob = checkout -b
+	br = branch
+	lo = log --oneline -10
+[url "git@github.com:"]
+	pushInsteadOf = https://github.com/
