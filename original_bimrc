@@ -1,17 +1,40 @@
 augroup myTemplate
 	autocmd!
-	autocmd BufNewFile *.rb call Hoge()
+	autocmd BufNewFile *.rb call SetClass()
 augroup END
 
-fun Hoge()
-  let s:hoge = expand("%")
-  if match(s:hoge, 'app/') != 0
+fun SetClass()
+  let s:path = expand('%')
+  if match(s:path, 'app/') != 0
     return 0
   endif
-  let s:hoge = strcharpart(s:hoge, 4)
-  echo s:hoge
+  let s:path = strcharpart(s:path, 4)
+  let s:list = matchlist(s:path, '\v([0-9a-z_]+)/([0-9a-z_/]+)\.rb')
 
-  let s:olon = substitute(s:hoge, '/', '::', 'g')
-  call setline(".", "# frozen_string_literal: true")
-  call append(1, ["", "class Hohge", "end"])
+  if s:list[1] == 'views'
+    return 0
+  elseif s:list[1] == 'models'
+    let s:superclass = 'ApplicationRecord'
+  elseif s:list[1] == 'controllers'
+    let s:superclass = 'ApplicationController'
+  else
+    let s:superclass = ''
+  endif
+
+  let s:class = join(map(split(s:list[2], '/'), function('PascalCase')), '::')
+
+  call setline('.', '# frozen_string_literal: true')
+  if strchars(s:superclass) == 0
+    call append(1, ['', 'class '.s:class, 'end'])
+  else
+    call append(1, ['', 'class '.s:class.' < '.s:superclass, 'end'])
+  endif
 endfun
+
+func PascalCase(key, val)
+  return join(map(split(a:val, '_'), function('FirstUpper')), '')
+endfunc
+
+func FirstUpper(key, val)
+  return substitute(a:val, '^\l', '\u&', '')
+endfunc
