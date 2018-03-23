@@ -1,0 +1,17 @@
+augroup myTemplate
+	autocmd!
+	autocmd BufNewFile *.rb call Hoge()
+augroup END
+
+fun Hoge()
+  let s:hoge = expand("%")
+  if match(s:hoge, 'app/') != 0
+    return 0
+  endif
+  let s:hoge = strcharpart(s:hoge, 4)
+  echo s:hoge
+
+  let s:olon = substitute(s:hoge, '/', '::', 'g')
+  call setline(".", "# frozen_string_literal: true")
+  call append(1, ["", "class Hohge", "end"])
+endfun
