@@ -1,0 +1,95 @@
+# Created by newuser for 5.4.2
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# For nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# For imagemagick@6
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+
+# direnv
+eval "$(direnv hook zsh)"
+
+
+echo "Load .zshrc"
+alias rm='rm -i'
+alias ls='ls -FG'
+alias la='ls -AFG'
+alias l='ls -AlFG'
+
+alias rr='cd `pwd`/`git rev-parse --show-cdup`'
+
+alias ca='cd ~/programming/github/moneyforward/ca_web'
+alias my='cd ~/programming/github/moneyforward/my_web'
+alias komon='cd ~/programming/github/moneyforward/komon_web'
+alias aweb='cd ~/programming/github/moneyforward/mfc_aweb'
+alias pa='cd ~/programming/github/moneyforward/pa_web'
+alias mfp='cd ~/programming/github/moneyforward/mf_platform'
+alias mfcp='cd ~/programming/github/moneyforward/mf_cloud_platform'
+
+alias ga='git add'
+alias gaa='git add --all'
+alias gamd='git commit --amend'
+alias gap='git add -p'
+alias gb='git branch'
+alias gbr='git branch --remote'
+alias gbd='git branch | fzf -m | xargs git branch -d'
+alias gcb='git branch | fzf | xargs git checkout'
+alias gcm='git commit -m'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gdf='git diff'
+alias gds='git diff --staged'
+alias gfd='git diff --name-only'
+alias gwd='git diff --color-words'
+alias gec='git commit --allow-empty -m'
+alias gf='git fetch'
+alias gfp='git push --force-with-lease origin head'
+alias gl='git log --oneline --no-decorate -8'
+alias gms='git merge --squash'
+alias gpl='git pull'
+alias gpr='git pull --rebase'
+alias gps='git push origin head'
+alias gr='git rebase'
+alias grb='git branch | fzf | xargs git rebase'
+alias grc='git rebase --continue'
+alias grl='git reflog -8'
+alias grm='git remote'
+alias gs='git status'
+alias gss='git status --short'
+alias gsh='git stash'
+alias gsr='git reset --soft'
+alias gus='git reset HEAD'
+alias gwp='git commit -a -m "wip"'
+setopt nolistbeep
+
+alias be='bundle exec'
+
+alias psf='ps ax | fzf'
+
+# PROMPT
+#	colors
+#	black:   0
+#	red:     1
+#	green:   2
+#	yellow:  3
+#	blue:    4
+#	magenta: 5
+#	cyan:    6
+#	white:   7
+
+setopt prompt_subst
+
+# Detail: man zshcontrib
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git # add system like this: git cvs svn
+zstyle ':vcs_info:*' formats       \
+	'[%F{2}%b%f]'
+precmd () { vcs_info }
+PS1='%F{6}%c%f/ ${vcs_info_msg_0_}%f%# '
+RPS1='[@%F{2}%m%f]'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
