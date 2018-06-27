@@ -1,5 +1,6 @@
 # Created by newuser for 5.4.2
 
+export PATH="/usr/local/bin:$PATH"
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
@@ -14,6 +15,7 @@ export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 eval "$(direnv hook zsh)"
 
 
+alias sshpdev="ssh money-book@pdev-komon20a.ebisubook.com"
 echo "Load .zshrc"
 alias rm='rm -i'
 alias ls='ls -FG'
@@ -24,7 +26,7 @@ alias rr='cd `pwd`/`git rev-parse --show-cdup`'
 
 alias ca='cd ~/programming/github/moneyforward/ca_web'
 alias my='cd ~/programming/github/moneyforward/my_web'
-alias komon='cd ~/programming/github/moneyforward/komon_web'
+alias kmn='cd ~/programming/github/moneyforward/komon_web'
 alias aweb='cd ~/programming/github/moneyforward/mfc_aweb'
 alias pa='cd ~/programming/github/moneyforward/pa_web'
 alias mfp='cd ~/programming/github/moneyforward/mf_platform'
@@ -93,3 +95,4 @@ PS1='%F{6}%c%f/ ${vcs_info_msg_0_}%f%# '
 RPS1='[@%F{2}%m%f]'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PGDATA=/usr/local/var/postgres
